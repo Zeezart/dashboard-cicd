@@ -30,7 +30,10 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir("${env.PROJECT_DIR}") {
-                    sh 'yarn install'
+                    sh '''
+                        npm i -g yarn
+                        yarn install
+                    '''
                 }
             }
         }
