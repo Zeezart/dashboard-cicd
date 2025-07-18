@@ -1,0 +1,19 @@
+- name: Deploy React App to S3
+  hosts: localhost
+  connection: local
+  vars:
+    s3_bucket: zeezartt-react-bucket   # your S3 bucket name
+    region: ap-south-1                  # your S3 bucket region
+
+  tasks:
+
+    - name: Upload React build folder to S3
+      amazon.aws.aws_s3:
+        bucket: "{{ s3_bucket }}"
+        mode: synchronize
+        recurse: yes
+        src: ../build                  # go up one level to find your build folder
+        dest: "/"                      # root of the S3 bucket
+        overwrite: yes
+        delete: yes
+        region: "{{ region }}"
