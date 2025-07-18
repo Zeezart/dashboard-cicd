@@ -17,6 +17,15 @@ pipeline {
                 checkout scm
             }
         }
+         stage('Clone App Repo') {
+          steps {
+              
+            sh '''
+                rm -rf app
+                git clone --branch main https://github.com/Zeezart/dashboard-app.git app
+              '''
+          }
+        }
 
         stage('Install Dependencies') {
             steps {
@@ -62,7 +71,7 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 dir('ansible') {
-                    sh 'ansible-playbook deploy.yml'
+                    sh 'ansible-playbook playbook.yaml'
                 }
             }
         }
