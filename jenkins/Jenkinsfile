@@ -33,8 +33,6 @@ pipeline {
                     sh '''
                         npm i -g yarn
                         yarn install
-                        yarn add --dev babel-jest @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript
-
                     '''
                 }
             }
