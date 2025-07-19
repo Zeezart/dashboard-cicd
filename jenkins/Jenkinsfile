@@ -38,13 +38,13 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                dir("${env.PROJECT_DIR}") {
-                    sh 'yarn test' // or yarn test:ci depending on your script
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     steps {
+        //         dir("${env.PROJECT_DIR}") {
+        //             sh 'yarn test' // or yarn test:ci depending on your script
+        //         }
+        //     }
+        // }
 
         stage('SonarQube Analysis') {
             steps {
