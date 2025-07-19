@@ -2,18 +2,25 @@
   hosts: localhost
   connection: local
   vars:
-    s3_bucket: zeezartt-react-bucket   # your S3 bucket name
-    region: ap-south-1                  # your S3 bucket region
+    s3_bucket: zeezartt-react-bucket
+    region: ap-south-1
+    local_build_path: ../build
 
   tasks:
+    - name: Find all files in the build folder
+      ansible.builtin.find:
+        paths: "{{ local_build_path }}"
+        recurse: yes
+        file_type: file
+      register: build_files
 
-    - name: Upload React build folder to S3
+    - name: Upload files to S3
       amazon.aws.aws_s3:
         bucket: "{{ s3_bucket }}"
-        mode: synchronize
-        recurse: yes
-        src: ../build                  # go up one level to find your build folder
-        dest: "/"                      # root of the S3 bucket
+        mode: put
+        object: "{{ item.path | regex_replace('^' + local_build_path + '/', '') }}"
+        src: "{{ item.path }}"
         overwrite: yes
-        delete: yes
+        permission: public-read
         region: "{{ region }}"
+      loop: "{{ build_files.files }}"
