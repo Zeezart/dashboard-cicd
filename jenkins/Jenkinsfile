@@ -19,6 +19,7 @@ pipeline {
           steps {
               
             sh '''
+                rm -rf app
                 git clone --branch main https://github.com/Zeezart/vibez.git app
               '''
           }
