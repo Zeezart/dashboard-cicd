@@ -15,7 +15,7 @@ pipeline {
                 checkout scm
             }
         }
-         stage('Clone App Repo') {
+        stage('Clone App Repo') {
           steps {
               
             sh '''
@@ -26,9 +26,11 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh '''
-                    npm i
-                ''' 
+                dir ('app'){
+                    sh '''
+                        npm i
+                    ''' 
+                }
             }
         }
 
