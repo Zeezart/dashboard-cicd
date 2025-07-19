@@ -44,8 +44,8 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            dir ('app'){
-                steps {
+            steps {
+                dir ('app'){
                     withSonarQubeEnv('sonarserver') {
                         sh '''
                             export NODE_OPTIONS=--openssl-legacy-provider
